@@ -17,15 +17,9 @@ fun CollapseIcon(
         targetValue = if (expanded) 180f else 0f
     )
 
-//    IconButton(
-//        modifier = Modifier.rotate(rotationState),
-//        onClick = {
-////            onClick(!expanded)
-//        }) {
-        Icon(
-            imageVector = Icons.Default.ArrowDropDown,
-            contentDescription = "Collapse/Expand Arrow",
-            modifier = Modifier.rotate(rotationState)
-        )
-//    }
+    Icon(
+        imageVector = Icons.Default.ArrowDropDown,
+        contentDescription = "Collapse/Expand Arrow",
+        modifier = Modifier.rotate(rotationState)
+    )
 }
