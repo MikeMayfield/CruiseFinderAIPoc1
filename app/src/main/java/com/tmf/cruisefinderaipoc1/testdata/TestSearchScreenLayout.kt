@@ -147,14 +147,14 @@ const val testSearchScreenLayout = """
           "Control": "TextInput",
           "Validate": "\\d*",
           "Label": "Maximum price",
-          "Text": "{Value}",
+          "Text": "$ {Value}",
           "BoundValue": "MaxPrice"
         },
         {
           "Control": "TextInput",
           "Validate": "\\d*",
           "Label": "Maximum price per day",
-          "Text": "{Value}",
+          "Text": "$ {Value}",
           "BoundValue": "MaxPricePerDay"
         },
         {

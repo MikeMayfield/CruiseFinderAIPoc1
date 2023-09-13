@@ -12,7 +12,7 @@ fun EmbeddedControls(
 ) {
     for (control in controls) {
         when (control.Control.lowercase()) {
-            "button" -> Todo(control, modifier, onValueChange)
+            "button" -> Button(control, modifier, onValueChange)
             "checkbox" -> Todo(control, modifier, onValueChange)
             "checkboxgroup" -> Todo(control, modifier, onValueChange)
             "date" -> Todo(control, modifier, onValueChange)

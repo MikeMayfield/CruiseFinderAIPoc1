@@ -34,7 +34,6 @@ fun Group(
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false)}
-    var isValid by remember { mutableStateOf(!control.isValid)}
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -53,7 +52,7 @@ fun Group(
             Icon(Icons.Filled.Home,"TODO", modifier = modifier.padding(end = 5.dp))
 
             Text(text = control.annotatedLabel,
-                color = if (isValid) MaterialTheme.colorScheme.primary else Color.Red,
+                color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
                 maxLines = if (expanded) 5 else 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f)
@@ -66,7 +65,7 @@ fun Group(
         if (expanded) {  //Only generate embedded controls if card is expanded
             //Generate all the child controls defined for the Group
             EmbeddedControls(controls = control.Controls, modifier = modifier.padding(horizontal = 5.dp), onValueChange = {
-                isValid = control.isValid
+                control.isValid = it.isValid
                 onValueChange
             })
         }

@@ -81,6 +81,7 @@ fun TextInput(
         if (expanded) {  //Only generate input field if card is expanded
             OutlinedTextField(
                 value = value,
+                singleLine = true,
                 modifier = modifier.padding(start = 30.dp, top = 10.dp, bottom = 5.dp),
                 isError = !control.isValid,
                 supportingText = {

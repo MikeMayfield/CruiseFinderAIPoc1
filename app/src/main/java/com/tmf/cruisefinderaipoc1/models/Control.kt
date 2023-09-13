@@ -206,6 +206,7 @@ data class Control(
         return null
     }
 
+    //TODO Move to separate class
     private fun invokeFunction(functionName: String, arguments: String, control: Control): String {
         return when (functionName.lowercase()) {
             "value" -> funValue(arguments)  //Get Value for current or named control
