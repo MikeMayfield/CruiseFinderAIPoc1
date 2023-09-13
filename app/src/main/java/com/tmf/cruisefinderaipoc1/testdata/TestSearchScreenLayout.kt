@@ -18,31 +18,31 @@ const val testSearchScreenLayout = """
       "Controls": [
         {
           "Control": "TextInput",
-          "Label": "Primary traveler's legal first name",
+          "Label": "Primary traveler's first name",
           "Text": "{Value}",
           "Hint": "Enter first name",
           "BoundValue": "PrimaryTravelerFirstName"
         },
         {
           "Control": "TextInput",
-          "Label": "Primary traveler's legal last name",
+          "Label": "Primary traveler's last name",
           "Text": "{Value}",
           "Hint": "Enter first name",
           "BoundValue": "PrimaryTravelerLastName"
+        },
+        {
+          "Control": "TextInput",
+          "Label": "Primary traveler's zip code",
+          "Text": "{Value}",
+          "Validate": "\\d{5}",
+          "Hint": "99999",
+          "BoundValue": "PrimaryZipCode"
         },
         {
           "Control": "Date",
           "Label": "Oldest traveler's birth date",
           "Text": "{Value}",
           "BoundValue": "OldestTravelerBirthDate"
-        },
-        {
-          "Control": "TextInput",
-          "Label": "Primary zip code",
-          "Text": "{Value}",
-          "Regex": "\\d{5}",
-          "Hint": "99999",
-          "BoundValue": "PrimaryZipCode"
         },
         {
           "Control": "Dropdown",
@@ -145,14 +145,14 @@ const val testSearchScreenLayout = """
       "Controls": [
         {
           "Control": "TextInput",
-          "Regex": "\\d*",
+          "Validate": "\\d*",
           "Label": "Maximum price",
           "Text": "{Value}",
           "BoundValue": "MaxPrice"
         },
         {
           "Control": "TextInput",
-          "Regex": "\\d*",
+          "Validate": "\\d*",
           "Label": "Maximum price per day",
           "Text": "{Value}",
           "BoundValue": "MaxPricePerDay"
@@ -165,7 +165,7 @@ const val testSearchScreenLayout = """
         },
         {
           "Control": "TextInput",
-          "Regex": "[12345](\\.\\d)?",
+          "Validate": "[12345](\\.\\d)?",
           "Label": "Minimum ship rating",
           "Text": "{Value} stars",
           "BoundValue": "MinShipRating",

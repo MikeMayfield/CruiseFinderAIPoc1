@@ -11,7 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.unit.dp
 import com.tmf.cruisefinderaipoc1.customControls.ScreenLayout
 import com.tmf.cruisefinderaipoc1.models.BoundData
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CruiseFinderAIPoc1Theme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxWidth(), color = Red) {// MaterialTheme.colorScheme.background) {
+                Surface(modifier = Modifier.fillMaxWidth(), color = Black) {// MaterialTheme.colorScheme.background) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()

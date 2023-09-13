@@ -20,7 +20,7 @@ data class Control(
     val Label: String = "",  //Label to display in non-collapsing section of control (e.g. SomeLabel: SomeText)
     val OnClick: String? = null,  //ID of click handler to call on button click
     val OnClickArgs: String? = null,  //List of string arguments, formatted as 'argname="value",...'
-    val Regex: String? = null,  //Regex to apply to input text control
+    val Validate: String? = null,  //Regex to apply to input text control to validate input value
     val SingleLine: Boolean = true,  //Flag: Single line (with ellipse) or multiple lines
     val Text: String = "",  //Dynamic text to display after label. Text can include dynamic formatting functions, such as {FunctionName:args}
 ) {
@@ -28,8 +28,32 @@ data class Control(
         ID?.lowercase() ?: BoundValue?.lowercase() ?: throw NotFoundException("No control ID for $Control control with label: $Label, text: $Text")
     }
 
-    private var _isValid: Boolean = true
-    private var isValid : Boolean
+    private val regex: Regex? by lazy {
+        if (Validate != null) Regex(Validate) else null
+    }
+
+    private var _liveValue  = DefaultValue ?: ""
+    var liveValue: String
+        get() = _liveValue
+        set(value) {
+            if (value != _liveValue) {
+                _liveValue = value
+                var boundDataValue = LiveData.boundData.dataValue(controlIdLc)
+                if (boundDataValue == null) {
+                    boundDataValue = LiveData.boundData.addValue(controlIdLc)
+                }
+                boundDataValue.Value = value
+                LiveData.saveChanges()  //Serialize changed bound value to repository  //TODO Could this be optimized to only save after a group of changes are made?
+                if (Text.isNotEmpty()) {
+                    updateText(stringFromTemplate(Text, this))
+                }
+                isValid = regex?.matches(liveValue) ?: true
+//TODO            onValueChanged.invoke(_liveValue)
+            }
+        }
+
+    private var _isValid: Boolean = regex?.matches(liveValue) ?: true
+    var isValid : Boolean
         get() {
             var result = _isValid
             if (_isValid && !Controls.isNullOrEmpty()) {
@@ -43,22 +67,6 @@ data class Control(
             return result
         }
         set(value) { _isValid = value }
-
-    private var _liveValue  = DefaultValue ?: ""
-    private var liveValue: String
-        get() = _liveValue
-        set(value) {
-            if (value != _liveValue) {
-                _liveValue = value
-                var boundDataValue = LiveData.boundData.dataValue(controlIdLc)
-                if (boundDataValue == null) {
-                    boundDataValue = LiveData.boundData.addValue(controlIdLc)
-                }
-                boundDataValue.Value = value
-                LiveData.saveChanges()  //Serialize changed bound value to repository  //TODO Could this be optimized to only save after a group of changes are made?
-//TODO            onValueChanged.invoke(_liveValue)
-            }
-        }
 
     fun init() {
         val boundDataForControl = LiveData.boundData.dataValue(controlIdLc)

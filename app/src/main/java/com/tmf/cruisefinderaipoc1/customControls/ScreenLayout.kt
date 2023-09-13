@@ -1,6 +1,5 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.tmf.cruisefinderaipoc1.models.BoundData
@@ -22,7 +21,7 @@ private fun initChildControlsRecursively(controls: List<Control>) {
         if (control.Controls.isNotEmpty()) {  //Init any children for control
             initChildControlsRecursively(control.Controls)
         }
-        Log.v("ScreenLayout.initChildControlsRecursively", control.toString())  //TODO
+//        Log.v("ScreenLayout.initChildControlsRecursively", control.toString())  //TODO
         control.init()  //Init the control itself
     }
 }

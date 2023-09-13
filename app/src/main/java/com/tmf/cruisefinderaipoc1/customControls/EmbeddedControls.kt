@@ -23,7 +23,7 @@ fun EmbeddedControls(
             "loyaltytextinput" -> Todo(control, modifier, onValueChange)
             "photo" -> Todo(control, modifier, onValueChange)
             "repeater" -> Todo(control, modifier, onValueChange)
-            "textinput" -> Todo(control, modifier, onValueChange)
+            "textinput" -> TextInput(control, modifier, onValueChange)
             else -> TODO()
         }
     }
