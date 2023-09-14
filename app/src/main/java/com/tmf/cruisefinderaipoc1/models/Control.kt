@@ -1,6 +1,7 @@
 package com.tmf.cruisefinderaipoc1.models
 
 import android.content.res.Resources.NotFoundException
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -24,15 +25,11 @@ data class Control(
     val SingleLine: Boolean = true,  //Flag: Single line (with ellipse) or multiple lines
     val Text: String = "",  //Dynamic text to display after label. Text can include dynamic formatting functions, such as {FunctionName:args}
 ) {
-    private val controlIdLc: String by lazy {
-        ID?.lowercase() ?: BoundValue?.lowercase() ?: throw NotFoundException("No control ID for $Control control with label: $Label, text: $Text")
-    }
+    //region Public properties
 
-    private val regex: Regex? by lazy {
-        if (Validate != null) Regex(Validate) else null
-    }
+    var recomposeTrigger = mutableStateOf(0)
 
-    private var _liveValue  = DefaultValue ?: ""
+    //Value of control, formatted using template, if any. Changing control value causes LiveText to be updated and recompose to be triggered
     var liveValue: String
         get() = _liveValue
         set(value) {
@@ -47,69 +44,90 @@ data class Control(
                 if (Text.isNotEmpty()) {
                     updateText(stringFromTemplate(Text, this))
                 }
-                isValid = regex?.matches(liveValue) ?: true
-//TODO            onValueChanged.invoke(_liveValue)
+                triggerRecompose()
             }
         }
+    private var _liveValue  = DefaultValue ?: ""
 
-    private var _isValid: Boolean = regex?.matches(liveValue) ?: true
-    var isValid : Boolean
+    //Text field formatted using template
+    private var liveText: String
+        get() = _liveText
+        private set(value) {
+            _liveText = value
+        }
+    private var _liveText = liveValue
+
+    //Determine if the value is valid, based on the Validate regex. Control is valid if it matches its own validation and all its children (if any) also are valid
+    val isValid : Boolean
         get() {
-            var result = _isValid
-            if (_isValid && !Controls.isNullOrEmpty()) {
+            var controlIsValid = regex?.matches(liveValue) ?: true
+            if (controlIsValid && !Controls.isNullOrEmpty()) {
                 for (control in Controls) {
                     if (!control.isValid) {
-                        result = false
+                        controlIsValid = false
                         break
                     }
                 }
             }
-            return result
+            return controlIsValid
         }
-        set(value) { _isValid = value }
+
+    val annotatedLabel
+        get() = AnnotatedString(
+            "${stringFromTemplate(Label, this)}${if (liveText.isNotEmpty()) ": $liveText" else ""}",
+            spanStyles = listOf(
+                AnnotatedString.Range(SpanStyle(fontWeight = FontWeight.Bold), 0, Label.length)
+            )
+        )
+
+    //endregion
+
+    //region Public methods
 
     fun init() {
         val boundDataForControl = LiveData.boundData.dataValue(controlIdLc)
         if (boundDataForControl != null) {
             val initialLiveValue = boundDataForControl.Value ?: DefaultValue ?: ""
-            if (initialLiveValue != _liveValue) {
-                _liveValue = initialLiveValue
+            if (initialLiveValue != liveValue) {
+                liveValue = initialLiveValue  //Note: Also updates LiveText
             }
-        }
-
-        updateText(stringFromTemplate(Text, this))
-    }
-
-    //region Dynamic variables
-
-    private val liveLabel
-        get() = stringFromTemplate(Label + if (liveText.isNotEmpty()) ": $liveText" else "", this)
-
-    val annotatedLabel
-        get() = AnnotatedString(
-            "${stringFromTemplate(Label, this)}${if (liveText.isNotEmpty()) ": $liveText" else ""}",
-                spanStyles = listOf(
-                    AnnotatedString.Range(SpanStyle(fontWeight = FontWeight.Bold), 0, Label.length)
-                )
-        )
-
-    private var _liveText = ""
-    val liveText
-        get() = _liveText
-
-    //Update liveText if its data changes. Returns TRUE if data changed
-    private fun updateText(value: String) : Boolean {
-        return if (_liveText != value) {
-            _liveText = value
-            true
         } else {
-            false
+            updateText(stringFromTemplate(Text, this))
         }
     }
 
     //endregion
 
+    //region Private properties
+
+    private val controlIdLc: String by lazy {
+        ID?.lowercase() ?: BoundValue?.lowercase() ?: throw NotFoundException("No control ID for $Control control with label: $Label, text: $Text")
+    }
+
+    private val regex: Regex? by lazy {
+        if (Validate != null) Regex(Validate) else null
+    }
+
+    private val liveLabel
+        get() = stringFromTemplate(Label + if (liveText.isNotEmpty()) ": $liveText" else "", this)
+
+    //endregion
+
     //region Private methods
+
+    private fun triggerRecompose() {
+        recomposeTrigger.value++
+    }
+
+    //Update liveText if its data changes. Returns TRUE if data changed
+    private fun updateText(value: String) : Boolean {
+        return if (liveText != value) {
+            liveText = value
+            true
+        } else {
+            false
+        }
+    }
 
     //Parse a template string to create a dynamic string result, processing functions and arguments as we go
     //  e.g. {label} or {graphic:someID} or {ListAnyTrueOrNone:Value,someText{Label}}
@@ -282,9 +300,9 @@ data class Control(
     //  arg: "" for current control, "someID" for named control
     private fun funText(arg: String): String {
         if (arg.isEmpty()) {
-            return _liveText
+            return liveText
         }
-        return findControl(arg)._liveText
+        return findControl(arg).liveText
     }
 
     //Generate string based on child control if named child's Value is non-zero, else empty string

@@ -24,10 +24,12 @@ import com.tmf.cruisefinderaipoc1.models.Control
 @Composable
 fun Todo(
     control: Control,
+    recomposeTrigger: Int,
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
     var expanded by remember { mutableStateOf(false) }
+    if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -63,7 +65,7 @@ fun Todo(
 
         if (expanded) {  //Only generate embedded controls if card is expanded
             //Generate all the child controls defined for the Group
-            EmbeddedControls(controls = control.Controls, modifier = modifier.padding(horizontal = 5.dp), onValueChange = onValueChange)
+            EmbeddedControls(controls = control.Controls, control.recomposeTrigger.value, modifier = modifier.padding(horizontal = 5.dp), onValueChange = onValueChange)
         }
     }
 

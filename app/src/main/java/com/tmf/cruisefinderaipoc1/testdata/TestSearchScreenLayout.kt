@@ -17,32 +17,43 @@ const val testSearchScreenLayout = """
       "Text": "{Value:NumberOfAdults} adults{IfNonZero:NumberOfChildren|, {Value:NumberOfChildren} children}",
       "Controls": [
         {
-          "Control": "TextInput",
-          "Label": "Primary traveler's first name",
-          "Text": "{Value}",
-          "Hint": "Enter first name",
-          "BoundValue": "PrimaryTravelerFirstName"
-        },
-        {
-          "Control": "TextInput",
-          "Label": "Primary traveler's last name",
-          "Text": "{Value}",
-          "Hint": "Enter first name",
-          "BoundValue": "PrimaryTravelerLastName"
-        },
-        {
-          "Control": "TextInput",
-          "Label": "Primary traveler's zip code",
-          "Text": "{Value}",
-          "Validate": "\\d{5}",
-          "Hint": "99999",
-          "BoundValue": "PrimaryZipCode"
-        },
-        {
-          "Control": "Date",
-          "Label": "Oldest traveler's birth date",
-          "Text": "{Value}",
-          "BoundValue": "OldestTravelerBirthDate"
+          "Control": "Group",
+          "ID": "grpTraveler",
+          "Icon": "travelerIcon",
+          "Label": "Primary traveler",
+          "Text": "{Value:PrimaryTravelerFirstName} {Value:PrimaryTravelerLastName}",
+          "Controls": [
+            {
+              "Control": "TextInput",
+              "Label": "First name",
+              "Text": "{Value}",
+              "Hint": "Enter first name",
+              "BoundValue": "PrimaryTravelerFirstName",
+              "Validate": "^(?!\\s*${'$'}).+"
+            },
+            {
+              "Control": "TextInput",
+              "Label": "Last name",
+              "Text": "{Value}",
+              "Hint": "Enter last name",
+              "BoundValue": "PrimaryTravelerLastName",
+              "Validate": "^(?!\\s*${'$'}).+"
+            },
+            {
+              "Control": "TextInput",
+              "Label": "Primary traveler's zip code",
+              "Text": "{Value}",
+              "Validate": "\\d{5}",
+              "Hint": "99999",
+              "BoundValue": "PrimaryZipCode"
+            },
+            {
+              "Control": "Date",
+              "Label": "Oldest traveler's birth date",
+              "Text": "{Value}",
+              "BoundValue": "OldestTravelerBirthDate"
+            }
+          ]
         },
         {
           "Control": "Dropdown",
@@ -147,14 +158,14 @@ const val testSearchScreenLayout = """
           "Control": "TextInput",
           "Validate": "\\d*",
           "Label": "Maximum price",
-          "Text": "$ {Value}",
+          "Text": "${'$'} {Value}",
           "BoundValue": "MaxPrice"
         },
         {
           "Control": "TextInput",
           "Validate": "\\d*",
           "Label": "Maximum price per day",
-          "Text": "$ {Value}",
+          "Text": "${'$'} {Value}",
           "BoundValue": "MaxPricePerDay"
         },
         {

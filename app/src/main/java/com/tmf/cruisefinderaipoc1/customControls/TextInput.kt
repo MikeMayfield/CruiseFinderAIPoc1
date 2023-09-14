@@ -32,12 +32,13 @@ import com.tmf.cruisefinderaipoc1.models.Control
 @Composable
 fun TextInput(
     control: Control,
+    recomposeTrigger: Int,
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
     var value by remember { mutableStateOf(control.liveValue) }
-    var expanded by remember { mutableStateOf(false)}
-    val regex = if (control.Validate != null) Regex(control.Validate) else null
+    var expanded by remember { mutableStateOf(false) }
+    if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -100,7 +101,6 @@ fun TextInput(
                 onValueChange = {
                     value = it
                     control.liveValue = it
-                    control.isValid = regex?.matches(it) ?: true
                     onValueChange(control)
                 }
             )

@@ -7,23 +7,26 @@ import com.tmf.cruisefinderaipoc1.models.Control
 @Composable
 fun EmbeddedControls(
     controls: List<Control>,
+    recomposeTrigger: Int,
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
+    if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
+
     for (control in controls) {
         when (control.Control.lowercase()) {
-            "button" -> Button(control, modifier, onValueChange)
-            "checkbox" -> Todo(control, modifier, onValueChange)
-            "checkboxgroup" -> Todo(control, modifier, onValueChange)
-            "date" -> Todo(control, modifier, onValueChange)
-            "deckmap" -> Todo(control, modifier, onValueChange)
-            "dropdown" -> Todo(control, modifier, onValueChange)
-            "group" -> Group(control, modifier, onValueChange)
-            "label" ->  Label(control, modifier, onValueChange)
-            "loyaltytextinput" -> Todo(control, modifier, onValueChange)
-            "photo" -> Todo(control, modifier, onValueChange)
-            "repeater" -> Todo(control, modifier, onValueChange)
-            "textinput" -> TextInput(control, modifier, onValueChange)
+            "button" -> Button(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "checkbox" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "checkboxgroup" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "date" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "deckmap" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "dropdown" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "group" -> Group(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "label" ->  Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "loyaltytextinput" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "photo" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "repeater" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "textinput" -> TextInput(control, control.recomposeTrigger.value, modifier, onValueChange)
             else -> TODO()
         }
     }
