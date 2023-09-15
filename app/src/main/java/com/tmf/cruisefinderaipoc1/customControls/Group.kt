@@ -58,7 +58,7 @@ fun Group(
 
             Text(text = control.annotatedLabel,
                 color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
-                maxLines = if (expanded) 5 else 1,
+                maxLines = if (expanded) 10 else 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f)
             )

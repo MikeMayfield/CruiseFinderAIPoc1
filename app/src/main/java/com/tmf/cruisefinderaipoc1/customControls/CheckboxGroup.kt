@@ -67,24 +67,17 @@ fun CheckboxGroup(
                 }
             )
 
-            if (expanded) {
-                Text(
-                    modifier = modifier.padding(start = 2.dp, top = 12.dp).weight(1f),
-                    text = control.annotatedLabel,
-                    color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
-                    maxLines = if (expanded) 5 else 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            else {
-                Text(
-                    modifier = modifier.padding(start = 2.dp).weight(1f),
-                    text = control.annotatedLabel,
-                    color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
-                    maxLines = if (expanded) 5 else 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
+            //Try to adjust padding at top if it might wrap. Exact wrap length is unknown, so this is just a best-try
+            val annotatedLabel = control.annotatedLabel
+            val topPadding = if (expanded) (if (annotatedLabel.length <= 40) 0.dp else 12.dp) else 0.dp
+
+            Text(
+                modifier = modifier.padding(start = 2.dp, top = topPadding).weight(1f),
+                text = annotatedLabel,
+                color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
+                maxLines = if (expanded) 10 else 1,
+                overflow = TextOverflow.Ellipsis
+            )
 
             //Control is collapsable
             CollapseIcon(expanded = expanded)
