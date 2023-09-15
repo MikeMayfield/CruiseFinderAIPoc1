@@ -1,5 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,6 +37,8 @@ fun CheckboxGroup(
     var expanded by remember { mutableStateOf(false) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a use of recomposeTrigger to force Compose to use it
 
+    Log.v("CheckboxGroup", "Compose ${control.controlIdLc}")
+
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(6.dp),
@@ -56,7 +59,7 @@ fun CheckboxGroup(
 
             TriStateCheckbox(state = tristate,
                 onClick = {
-                    control.liveValue = changeChildrenToToggleTristate(tristate, control.Controls)
+                    control.liveValue = changeChildrenCheckedState(tristate, control.Controls)
                     onValueChange(control)
                 }
             )
@@ -116,7 +119,7 @@ fun CheckboxGroup(
     }
 }
 
-fun changeChildrenToToggleTristate(tristate: ToggleableState, controls: List<Control>): String {
+fun changeChildrenCheckedState(tristate: ToggleableState, controls: List<Control>): String {
     //Set checked/unchecked for all child Checkboxes and let their change event(s) update Tristate automatically in OnChange events
     //  If currently Checked, set all children to "unchecked", which will cause the group to be "unchecked"
     //  If currently Unchecked or Indeterminate (some checked), set all children to "checked", which will cause the group to be "checked"
@@ -124,6 +127,9 @@ fun changeChildrenToToggleTristate(tristate: ToggleableState, controls: List<Con
     for (control in controls) {
         if (control.liveValue != newCheckedState) {
             control.liveValue = newCheckedState
+            if (control.Controls.isNotEmpty()) {
+                changeChildrenCheckedState(tristate, control.Controls)
+            }
         }
     }
 

@@ -78,7 +78,7 @@ const val testSearchScreenLayout = """
           "Control": "Group",
           "ID": "grpLoyalty",
           "Label": "Loyalty programs",
-          "Text": "{ListChildrenNonEmptyNone:Label|{Value}}",
+          "Text": "{ListChildrenNonEmptyNone:{Label}}",
           "Controls": [
             {
               "Control": "LoyaltyTextInput",
@@ -336,14 +336,14 @@ const val testSearchScreenLayout = """
       "Control": "CheckboxGroup",
       "ID": "chkCruiseLines",
       "Label": "Cruise Lines and Ships",
-      "Text": "{ListChildrenTrueAllNone:{Label}}",
+      "Text": "{ChildrenCheckedAllSomeNone}",
       "DefaultValue": "checked",
       "Controls": [
         {
           "Control": "CheckboxGroup",
           "ID": "chkLineCarnival",
           "Label": "Carnival Cruise Line",
-          "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {
@@ -385,6 +385,24 @@ const val testSearchScreenLayout = """
                   "Label": "Carnival Horizon (2018)",
                   "BoundValue": "IncludeShipCarnivalHorizon",
                   "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Carnival Panorama (2019)",
+                  "BoundValue": "IncludeShipCarnivalPanorama",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Carnival Venezia (2023)",
+                  "BoundValue": "IncludeShipCarnivalVenezia",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Carnival Vista (2016)",
+                  "BoundValue": "IncludeShipCarnivalVista",
+                  "DefaultValue": "checked"
                 }
               ]
             }
@@ -394,7 +412,7 @@ const val testSearchScreenLayout = """
           "Control": "CheckboxGroup",
           "ID": "chkLineCelebrity",
           "Label": "Celebrity Cruises",
-          "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {

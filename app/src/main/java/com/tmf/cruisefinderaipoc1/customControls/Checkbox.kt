@@ -1,5 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
@@ -26,6 +27,8 @@ fun Checkbox(
 ) {
     var value by remember { mutableStateOf(control.liveValue) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
+
+    Log.v("Checkbox", "Compose ${control.controlIdLc}")
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Checkbox(checked = (control.liveValue == "checked"),

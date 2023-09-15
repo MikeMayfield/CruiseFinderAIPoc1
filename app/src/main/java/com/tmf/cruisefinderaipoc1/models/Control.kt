@@ -41,21 +41,15 @@ data class Control(
                 }
                 boundDataValue.Value = value
                 LiveData.saveChanges()  //Serialize changed bound value to repository  //TODO Could this be optimized to only save after a group of changes are made?
-                if (Text.isNotEmpty()) {
-                    updateText(stringFromTemplate(Text, this))
-                }
+
                 triggerRecompose()
             }
         }
     private var _liveValue  = DefaultValue ?: ""
 
     //Text field formatted using template
-    private var liveText: String
-        get() = _liveText
-        private set(value) {
-            _liveText = value
-        }
-    private var _liveText = liveValue
+    private val liveText: String
+        get() = if (Text.isNotEmpty()) stringFromTemplate(Text, this) else ""
 
     //Determine if the value is valid, based on the Validate regex. Control is valid if it matches its own validation and all its children (if any) also are valid
     val isValid : Boolean
@@ -72,13 +66,16 @@ data class Control(
             return controlIsValid
         }
 
-    val annotatedLabel
-        get() = AnnotatedString(
-            "${stringFromTemplate(Label, this)}${if (liveText.isNotEmpty()) ": $liveText" else ""}",
-            spanStyles = listOf(
-                AnnotatedString.Range(SpanStyle(fontWeight = FontWeight.Bold), 0, Label.length)
+    val annotatedLabel: AnnotatedString
+        get() {
+            val localLiveText = liveText
+            return AnnotatedString(
+                "${stringFromTemplate(Label, this)}${if (localLiveText.isNotEmpty()) ": $localLiveText" else ""}",
+                spanStyles = listOf(
+                    AnnotatedString.Range(SpanStyle(fontWeight = FontWeight.Bold), 0, Label.length)
+                )
             )
-        )
+        }
 
     //endregion
 
@@ -91,8 +88,6 @@ data class Control(
             if (initialLiveValue != liveValue) {
                 liveValue = initialLiveValue  //Note: Also updates LiveText
             }
-        } else {
-            updateText(stringFromTemplate(Text, this))
         }
     }
 
@@ -100,7 +95,7 @@ data class Control(
 
     //region Private properties
 
-    private val controlIdLc: String by lazy {
+    val controlIdLc: String by lazy {
         ID?.lowercase() ?: BoundValue?.lowercase() ?: throw NotFoundException("No control ID for $Control control with label: $Label, text: $Text")
     }
 
@@ -108,7 +103,7 @@ data class Control(
         if (Validate != null) Regex(Validate) else null
     }
 
-    private val liveLabel
+    private val labelWithText
         get() = stringFromTemplate(Label + if (liveText.isNotEmpty()) ": $liveText" else "", this)
 
     //endregion
@@ -117,16 +112,6 @@ data class Control(
 
     private fun triggerRecompose() {
         recomposeTrigger.value++
-    }
-
-    //Update liveText if its data changes. Returns TRUE if data changed
-    private fun updateText(value: String) : Boolean {
-        return if (liveText != value) {
-            liveText = value
-            true
-        } else {
-            false
-        }
     }
 
     //Parse a template string to create a dynamic string result, processing functions and arguments as we go
@@ -227,12 +212,13 @@ data class Control(
     //TODO Move to separate class
     private fun invokeFunction(functionName: String, arguments: String, control: Control): String {
         return when (functionName.lowercase()) {
-            "value" -> funValue(arguments)  //Get Value for current or named control
-            "label" -> funLabel(arguments)  //Get Label for current or named control
-            "text" -> funText(arguments)  //Get Text for current or named control
+            "value" -> funValue(arguments, control)  //Get Value for current or named control
+            "label" -> funLabel(arguments, control)  //Get Label for current or named control
+            "text" -> funText(arguments, control)  //Get Text for current or named control
             "ifnonzero" -> funIfNonZero(arguments)  //If current or named control's Value is non-zero, generate result string
-            "listchildrennonemptynone" -> funListChildrenNonEmptyNone(arguments)  //Generate comma-delimited list from children with non-empty Values
-            "listchildrentrueallnone" -> funListChildrenTrueAllNone(arguments)  //Generate comma-delimited list from children with "Checked" or "Indeterminate" Values
+            "listchildrennonemptynone" -> funListChildrenNonEmptyNone(arguments, control)  //Generate comma-delimited list from children with non-empty Values
+            "listchildrentrueallnone" -> funListChildrenTrueAllNone(arguments, control)  //Generate comma-delimited list from children with "Checked" or "Indeterminate" Values
+            "childrencheckedallsomenone" -> funChildrenCheckedAllSomeNone(control)  //Generate "All", "Some", or "None" based on children's checked state
             //TODO More functions. Do we need to use Control?
             else -> TODO()
         }
@@ -280,27 +266,27 @@ data class Control(
 
     //Get Value field of current control or named control (by ID)
     //  arg: "" for current control, "someID" for named control
-    private fun funValue(arg: String): String {
+    private fun funValue(arg: String, control: Control): String {
         if (arg.isEmpty()) {
-            return liveValue
+            return control.liveValue
         }
         return findControl(arg).liveValue
     }
 
     //Get Label field of current control or named control (by ID)
     //  arg: "" for current control, "someID" for named control
-    private fun funLabel(arg: String): String {
+    private fun funLabel(arg: String, control: Control): String {
         if (arg.isEmpty()) {
-            return liveLabel
+            return control.Label
         }
-        return findControl(arg).liveLabel
+        return findControl(arg).Label
     }
 
     //Get Text field of current control or named control (by ID)
     //  arg: "" for current control, "someID" for named control
-    private fun funText(arg: String): String {
+    private fun funText(arg: String, control: Control): String {
         if (arg.isEmpty()) {
-            return liveText
+            return control.liveText
         }
         return findControl(arg).liveText
     }
@@ -327,19 +313,19 @@ data class Control(
     }
 
     //Build comma-delimited list of data from all children with non-empty Value. Return "None" if empty list generated
-    //  arg = String template for each element of the list that is non-empty
-    private fun funListChildrenNonEmptyNone(arg: String): String {
+    //  arg = String template for each element of the list with a non-empty Value
+    private fun funListChildrenNonEmptyNone(arg: String, control: Control): String {
         var resultSB = StringBuilder()
         var prependComma = false
 
-        for (control in Controls) {
+        for (control in control.Controls) {
             if (control.liveValue.isNotEmpty()) {
                 if (prependComma) {
                     resultSB.append(", ")
                 } else {
                     prependComma = true
                 }
-                resultSB.append(control.liveValue)
+                resultSB.append(stringFromTemplate(arg, control))
             }
         }
 
@@ -348,12 +334,12 @@ data class Control(
 
     //Build comma-delimited list of data from all children (checkboxes) in named collection with "CHECKED" or "INDETERMINATE" Value. Return "All" if all childen included, else "None" if empty list generated
     //  arg = "template", where "template" is the template to use to create each child value from the checked Control
-    private fun funListChildrenTrueAllNone(arg: String): String {
+    private fun funListChildrenTrueAllNone(arg: String, control: Control): String {
         var resultSB = StringBuilder()
         var prependComma = false
         var checkedCnt = 0
 
-        for (control in Controls) {
+        for (control in control.Controls) {
             val checkedType = control.liveValue.lowercase()
             if (checkedType == "checked" || checkedType == "indeterminate") {
                 checkedCnt++
@@ -362,7 +348,7 @@ data class Control(
                 } else {
                     prependComma = true
                 }
-                resultSB.append(control.liveLabel)
+                resultSB.append(stringFromTemplate(arg, control))
             }
         }
 
@@ -370,6 +356,22 @@ data class Control(
             checkedCnt == Controls.size -> "All"
             resultSB.isNotEmpty() -> resultSB.toString()
             else -> "None"
+        }
+    }
+
+    //Return "All" if all children/grandchildren checked, "Some" if some, but not all, children/grandchildren checked, "None" if no children/grandchildren checked
+    private fun funChildrenCheckedAllSomeNone(control: Control): String {
+        var checkedCnt = 0
+        var uncheckedCnt = 0
+        for (childControl in control.Controls) {
+            if (childControl.liveValue == "checked") checkedCnt++
+            if (childControl.liveValue == "unchecked") uncheckedCnt++
+        }
+
+        return when {
+            (checkedCnt == Controls.size) -> "All"
+            (uncheckedCnt == Controls.size) -> "None"
+            else -> "Some"
         }
     }
 
