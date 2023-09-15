@@ -19,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.tmf.cruisefinderaipoc1.models.Control
@@ -66,7 +65,6 @@ fun CheckboxGroup(
                 Text(
                     modifier = modifier.padding(start = 2.dp, top = 12.dp).weight(1f),
                     text = control.annotatedLabel,
-                    fontWeight = FontWeight.Bold,
                     color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
                     maxLines = if (expanded) 5 else 1,
                     overflow = TextOverflow.Ellipsis
@@ -76,7 +74,6 @@ fun CheckboxGroup(
                 Text(
                     modifier = modifier.padding(start = 2.dp).weight(1f),
                     text = control.annotatedLabel,
-                    fontWeight = FontWeight.Bold,
                     color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
                     maxLines = if (expanded) 5 else 1,
                     overflow = TextOverflow.Ellipsis
@@ -88,7 +85,7 @@ fun CheckboxGroup(
         }
 
         if (expanded) {  //Only generate embedded controls if card is expanded
-            val childValueChangeHandler = {
+            val childCheckedChangeHandler = {
                 //Set tristate checked value as On: All children checked, Indeterminate: Some children checked, or Off: No children checked
                 var checkedCnt = 0
                 var uncheckedCnt = 0
@@ -110,9 +107,9 @@ fun CheckboxGroup(
             for (control in control.Controls) {
                 when (control.Control.lowercase()) {
                     "checkbox" -> Checkbox(control, control.recomposeTrigger.value, modifier = modifier.padding(start = 5.dp),
-                        onValueChange = { childValueChangeHandler() })
+                        onValueChange = { childCheckedChangeHandler() })
                     "checkboxgroup" -> CheckboxGroup(control, control.recomposeTrigger.value, modifier = modifier.padding(start = 5.dp),
-                        onValueChange = { childValueChangeHandler() })
+                        onValueChange = { childCheckedChangeHandler() })
                 }
             }
         }

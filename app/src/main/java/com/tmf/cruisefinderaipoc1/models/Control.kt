@@ -346,18 +346,6 @@ data class Control(
         return if (resultSB.isNotEmpty()) resultSB.toString() else "None"
     }
 
-    //Build comma-delimited list of data from all children with non-empty Value. Return "All" if all childen included, else "None" if empty list generated
-    //  arg = String template for each element of the list
-    private fun funListAnyTrueOrNone(template: String): String {
-        TODO()
-    }
-
-    //Build comma-delimited list of data from all children in named collection with non-empty Value. Return "All" if all childen included, else "None" if empty list generated
-    //  arg = ChildCollectionID | String template for each element of the list
-    private fun funListAnyTrueOrNoneByID(arg: String): String {
-        TODO()
-    }
-
     //Build comma-delimited list of data from all children (checkboxes) in named collection with "CHECKED" or "INDETERMINATE" Value. Return "All" if all childen included, else "None" if empty list generated
     //  arg = "template", where "template" is the template to use to create each child value from the checked Control
     private fun funListChildrenTrueAllNone(arg: String): String {
