@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.tmf.cruisefinderaipoc1.models.Control
 
 /**
- * Collapsable group of controls, displayed within a Card indented within its parent
+ * Label and text input box
  */
 @Composable
 fun TextInput(

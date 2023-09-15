@@ -23,7 +23,7 @@ fun EmbeddedControls(
             "dropdown" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "group" -> Group(control, control.recomposeTrigger.value, modifier, onValueChange)
             "label" ->  Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
-            "loyaltytextinput" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "loyaltytextinput" -> LoyaltyTextInput(control, control.recomposeTrigger.value, modifier, onValueChange)
             "photo" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "repeater" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "textinput" -> TextInput(control, control.recomposeTrigger.value, modifier, onValueChange)
