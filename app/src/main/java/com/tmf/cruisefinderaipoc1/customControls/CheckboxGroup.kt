@@ -48,7 +48,7 @@ fun CheckboxGroup(
             }
     ) {
 
-        Row(verticalAlignment = Alignment.Top) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(end = 12.dp)) {
             val tristate: ToggleableState = when (control.liveValue) {
                 "checked" -> ToggleableState.On
                 "unchecked" -> ToggleableState.Off
@@ -62,14 +62,26 @@ fun CheckboxGroup(
                 }
             )
 
-            Text(
-                modifier = modifier.padding(start = 2.dp).weight(1f),
-                text = control.annotatedLabel,
-                fontWeight = FontWeight.Bold,
-                color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
-                maxLines = if (expanded) 5 else 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            if (expanded) {
+                Text(
+                    modifier = modifier.padding(start = 2.dp, top = 12.dp).weight(1f),
+                    text = control.annotatedLabel,
+                    fontWeight = FontWeight.Bold,
+                    color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
+                    maxLines = if (expanded) 5 else 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            else {
+                Text(
+                    modifier = modifier.padding(start = 2.dp).weight(1f),
+                    text = control.annotatedLabel,
+                    fontWeight = FontWeight.Bold,
+                    color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
+                    maxLines = if (expanded) 5 else 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
 
             //Control is collapsable
             CollapseIcon(expanded = expanded)
@@ -79,13 +91,15 @@ fun CheckboxGroup(
             val childValueChangeHandler = {
                 //Set tristate checked value as On: All children checked, Indeterminate: Some children checked, or Off: No children checked
                 var checkedCnt = 0
+                var uncheckedCnt = 0
                 for (childControl in control.Controls) {
                     if (childControl.liveValue == "checked") checkedCnt++
+                    if (childControl.liveValue == "unchecked") uncheckedCnt++
                 }
 
                 control.liveValue = when {
                     (checkedCnt == control.Controls.size) -> "checked"
-                    (checkedCnt == 0) -> "unchecked"
+                    (uncheckedCnt == control.Controls.size) -> "unchecked"
                     else -> "indeterminate"
                 }
 

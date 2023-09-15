@@ -45,7 +45,8 @@ const val testSearchScreenLayout = """
               "Text": "{Value}",
               "Validate": "\\d{5}",
               "Hint": "99999",
-              "BoundValue": "PrimaryZipCode"
+              "BoundValue": "PrimaryZipCode",
+              "DefaultValue": "99999"
             },
             {
               "Control": "Date",
@@ -334,7 +335,7 @@ const val testSearchScreenLayout = """
     {
       "Control": "CheckboxGroup",
       "ID": "chkCruiseLines",
-      "Label": "Cruise Lines",
+      "Label": "Cruise Lines and Ships",
       "Text": "{ListChildrenTrueAllNone:{Label}}",
       "DefaultValue": "checked",
       "Controls": [
