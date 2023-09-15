@@ -1,5 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,9 +37,10 @@ fun TextInput(
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
-    var value by remember { mutableStateOf(control.liveValue) }
     var expanded by remember { mutableStateOf(false) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
+
+    Log.v("TextInput", "Compose ${control.controlIdLc}")
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -81,7 +83,7 @@ fun TextInput(
 
         if (expanded) {  //Only generate input field if card is expanded
             OutlinedTextField(
-                value = value,
+                value = control.liveValue,
                 singleLine = true,
                 modifier = modifier.padding(start = 30.dp, top = 10.dp, bottom = 5.dp),
                 isError = !control.isValid,
@@ -99,7 +101,6 @@ fun TextInput(
                         Icon(Icons.Filled.Info,"error", tint = MaterialTheme.colorScheme.error)
                 },
                 onValueChange = {
-                    value = it
                     control.liveValue = it
                     onValueChange(control)
                 }

@@ -11,6 +11,6 @@ fun LoyaltyTextInput(
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
-    //TODO Automatically lookup loyalty number for non-empty value
+    //TODO Automatically lookup loyalty number for non-empty value (process lookup in background thread. Only process once)
     TextInput(control, recomposeTrigger, modifier, onValueChange)
 }

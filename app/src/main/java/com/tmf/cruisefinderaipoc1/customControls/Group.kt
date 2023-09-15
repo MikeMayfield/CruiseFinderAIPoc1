@@ -1,5 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,6 +37,8 @@ fun Group(
 ) {
     var expanded by remember { mutableStateOf(false) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a use of recomposeTrigger to force Compose to use it
+
+    Log.v("Group", "Compose ${control.controlIdLc}")
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),

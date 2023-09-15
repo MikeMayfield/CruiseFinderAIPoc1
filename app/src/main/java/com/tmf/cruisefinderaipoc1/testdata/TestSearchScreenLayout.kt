@@ -153,7 +153,7 @@ const val testSearchScreenLayout = """
       "ID": "grpPreferences",
       "Icon": "PreferencesIcon",
       "Label": "Preferences",
-      "Text": "{Value:MinShipRating} Stars; Cabins: {Text:chkPreferredCabinTypes}",
+      "Text": "{Value:MinShipRating} Stars; Cabins: {Text:ckgPreferredCabinTypes}",
       "Controls": [
         {
           "Control": "TextInput",
@@ -185,7 +185,7 @@ const val testSearchScreenLayout = """
         },
         {
           "Control": "CheckboxGroup",
-          "ID": "chkShipSize",
+          "ID": "ckgShipSize",
           "Label": "Ship size",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
           "DefaultValue": "checked",
@@ -212,7 +212,7 @@ const val testSearchScreenLayout = """
         },
         {
           "Control": "CheckboxGroup",
-          "ID": "chkPreferredCabinTypes",
+          "ID": "ckgPreferredCabinTypes",
           "Label": "Preferred cabin type",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
           "DefaultValue": "indeterminate",
@@ -265,7 +265,7 @@ const val testSearchScreenLayout = """
     },
     {
       "Control": "CheckboxGroup",
-      "ID": "chkActivities",
+      "ID": "ckgActivities",
       "Label": "Desired Activities",
       "Text": "{ListChildrenTrueAllNone:{Label}}",
       "DefaultValue": "indeterminate",
@@ -334,21 +334,21 @@ const val testSearchScreenLayout = """
     },
     {
       "Control": "CheckboxGroup",
-      "ID": "chkCruiseLines",
+      "ID": "ckgCruiseLines",
       "Label": "Cruise Lines and Ships",
       "Text": "{ChildrenCheckedAllSomeNone}",
       "DefaultValue": "checked",
       "Controls": [
         {
           "Control": "CheckboxGroup",
-          "ID": "chkLineCarnival",
+          "ID": "ckgLineCarnival",
           "Label": "Carnival Cruise Line",
           "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "CheckboxGroup",
-              "ID": "chkClassCarnivalExcel",
+              "ID": "ckgClassCarnivalExcel",
               "Label": "Excel Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
               "DefaultValue": "checked",
@@ -369,7 +369,7 @@ const val testSearchScreenLayout = """
             },
             {
               "Control": "CheckboxGroup",
-              "ID": "chkClassCarnivalVista",
+              "ID": "ckgClassCarnivalVista",
               "Label": "Vista/Venezia Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
               "DefaultValue": "checked",
@@ -410,14 +410,14 @@ const val testSearchScreenLayout = """
         },
         {
           "Control": "CheckboxGroup",
-          "ID": "chkLineCelebrity",
+          "ID": "ckgLineCelebrity",
           "Label": "Celebrity Cruises",
           "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "CheckboxGroup",
-              "ID": "chkClassCelebrityEdge",
+              "ID": "ckgClassCelebrityEdge",
               "Label": "Edge Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
               "DefaultValue": "checked",
@@ -438,7 +438,7 @@ const val testSearchScreenLayout = """
             },
             {
               "Control": "CheckboxGroup",
-              "ID": "chkClassCelebritySolstice",
+              "ID": "ckgClassCelebritySolstice",
               "Label": "Solstice Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
               "DefaultValue": "checked",

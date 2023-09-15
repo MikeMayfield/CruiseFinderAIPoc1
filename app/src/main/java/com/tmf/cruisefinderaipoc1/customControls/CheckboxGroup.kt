@@ -59,8 +59,11 @@ fun CheckboxGroup(
 
             TriStateCheckbox(state = tristate,
                 onClick = {
-                    control.liveValue = changeChildrenCheckedState(tristate, control.Controls)
-                    onValueChange(control)
+                    val newValue = changeChildrenCheckedState(tristate, control.Controls)
+                    if (control.liveValue != newValue) {
+                        control.liveValue = newValue
+                        onValueChange(control)
+                    }
                 }
             )
 
@@ -97,13 +100,16 @@ fun CheckboxGroup(
                     if (childControl.liveValue == "unchecked") uncheckedCnt++
                 }
 
-                control.liveValue = when {
+                //Process value, if changed
+                val newValue = when {
                     (checkedCnt == control.Controls.size) -> "checked"
                     (uncheckedCnt == control.Controls.size) -> "unchecked"
                     else -> "indeterminate"
                 }
-
-                onValueChange(control)
+                if (control.liveValue != newValue) {
+                    control.liveValue = newValue
+                    onValueChange(control)
+                }
             }
 
             //Generate all the child Checkboxes and CheckboxGroups for this group

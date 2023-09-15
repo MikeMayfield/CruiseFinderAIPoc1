@@ -1,5 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,10 +17,12 @@ fun ScreenLayout(layout: Layout, boundData: BoundData, modifier: Modifier = Modi
     var expanded = remember { mutableStateOf(0) }
     var recomposeTrigger = remember { mutableStateOf(0) }
 
+    Log.v("ScreenLayout", "Compose")
+
     initChildControlsRecursively(layout.Controls)  //Init each control in layout, from the bottom of the tree to the top (to provide child data to parent, if needed)
 
     EmbeddedControls(controls = layout.Controls, recomposeTrigger.value, modifier) {  //Display the controls
-        recomposeTrigger.value++  //Trigger recompose on all child controls in case their layout changed from this update
+//        recomposeTrigger.value++  //Trigger recompose on all child controls in case their layout changed from this update
     }
 }
 
