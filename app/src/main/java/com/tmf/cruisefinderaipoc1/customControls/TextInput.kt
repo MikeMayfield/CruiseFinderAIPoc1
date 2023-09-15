@@ -43,16 +43,16 @@ fun TextInput(
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(6.dp),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp, 5.dp, 5.dp, 5.dp)
+            .padding(5.dp)
             .clickable {
                 expanded = !expanded
             }
     ) {
 
         //Group's display body is generated from its templated Label and Text, if any
-        Row(verticalAlignment = Alignment.Top, modifier = modifier.padding(start = 5.dp)) {  //Label and optional text value
+        Row(verticalAlignment = Alignment.Top, modifier = modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
 
             if (expanded) {

@@ -187,6 +187,7 @@ const val testSearchScreenLayout = """
           "ID": "chkShipSize",
           "Label": "Ship size",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "Checkbox",
@@ -203,7 +204,7 @@ const val testSearchScreenLayout = """
             {
               "Control": "Checkbox",
               "Label": "Large",
-              "BoundValue": "ShipSizeMedium",
+              "BoundValue": "ShipSizeLarge",
               "DefaultValue": "checked"
             }
           ]
@@ -213,16 +214,19 @@ const val testSearchScreenLayout = """
           "ID": "chkPreferredCabinTypes",
           "Label": "Preferred cabin type",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "DefaultValue": "indeterminate",
           "Controls": [
             {
               "Control": "Checkbox",
               "Label": "Inside",
-              "BoundValue": "PreferInsideCabin"
+              "BoundValue": "PreferInsideCabin",
+              "DefaultValue": "unchecked"
             },
             {
               "Control": "Checkbox",
               "Label": "Ocean view",
-              "BoundValue": "PreferOceanView"
+              "BoundValue": "PreferOceanView",
+              "DefaultValue": "unchecked"
             },
             {
               "Control": "Checkbox",
@@ -239,19 +243,22 @@ const val testSearchScreenLayout = """
             {
               "Control": "Checkbox",
               "Label": "Suite",
-              "BoundValue": "PreferSuite"
+              "BoundValue": "PreferSuite",
+              "DefaultValue": "unchecked"
             },
             {
               "Control": "Checkbox",
               "Label": "Specialty suite",
-              "BoundValue": "PreferSpecialtySuite"
+              "BoundValue": "PreferSpecialtySuite",
+              "DefaultValue": "unchecked"
             }
           ]
         },
         {
           "Control": "Checkbox",
           "Label": "Exclude non-refundable fares",
-          "BoundValue": "ExcludeNonRefundable"
+          "BoundValue": "ExcludeNonRefundable",
+          "DefaultValue": "unchecked"
         }
       ]
     },
@@ -260,56 +267,67 @@ const val testSearchScreenLayout = """
       "ID": "chkActivities",
       "Label": "Desired Activities",
       "Text": "{ListChildrenTrueAllNone:{Label}}",
+      "DefaultValue": "indeterminate",
       "Controls": [
         {
           "Control": "Checkbox",
           "Label": "Baby and tots",
-          "BoundValue": "ActivityBaby"
+          "BoundValue": "ActivityBaby",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Beach and ocean",
-          "BoundValue": "ActivityBeach"
+          "BoundValue": "ActivityBeach",
+          "DefaultValue": "checked"
         },
         {
           "Control": "Checkbox",
           "Label": "Luxury cruiseline",
-          "BoundValue": "ActivityLuxury"
+          "BoundValue": "ActivityLuxury",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Party and night life",
-          "BoundValue": "ActivityParty"
+          "BoundValue": "ActivityParty",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Pool and water activities",
-          "BoundValue": "ActivityPool"
+          "BoundValue": "ActivityPool",
+          "DefaultValue": "checked"
         },
         {
           "Control": "Checkbox",
           "Label": "Scenery and wildlife",
-          "BoundValue": "ActivityScenery"
+          "BoundValue": "ActivityScenery",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Special shipboard activities",
-          "BoundValue": "ActivityShipboard"
+          "BoundValue": "ActivityShipboard",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Shopping",
-          "BoundValue": "ActivityShopping"
+          "BoundValue": "ActivityShopping",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Spa and adult only",
-          "BoundValue": "ActivitySpa"
+          "BoundValue": "ActivitySpa",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
           "Label": "Teen and pre-teen activities",
-          "BoundValue": "ActivityTeen"
+          "BoundValue": "ActivityTeen",
+          "DefaultValue": "unchecked"
         }
       ]
     },
@@ -325,22 +343,26 @@ const val testSearchScreenLayout = """
           "ID": "chkLineCarnival",
           "Label": "Carnival Cruise Line",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "CheckboxGroup",
               "ID": "chkClassCarnivalExcel",
               "Label": "Excel Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
               "Controls": [
                 {
                   "Control": "Checkbox",
                   "Label": "Carnival Celebration (2022)",
-                  "BoundValue": "IncludeShipCarnivalCelebration"
+                  "BoundValue": "IncludeShipCarnivalCelebration",
+                  "DefaultValue": "checked"
                 },
                 {
                   "Control": "Checkbox",
                   "Label": "Carnival Jubilee (2023)",
-                  "BoundValue": "IncludeShipCarnivalJubilee"
+                  "BoundValue": "IncludeShipCarnivalJubilee",
+                  "DefaultValue": "checked"
                 }
               ]
             },
@@ -349,16 +371,19 @@ const val testSearchScreenLayout = """
               "ID": "chkClassCarnivalVista",
               "Label": "Vista/Venezia Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
               "Controls": [
                 {
                   "Control": "Checkbox",
                   "Label": "Carnival Firenze (2024)",
-                  "BoundValue": "IncludeShipCarnivalFirenze"
+                  "BoundValue": "IncludeShipCarnivalFirenze",
+                  "DefaultValue": "checked"
                 },
                 {
                   "Control": "Checkbox",
                   "Label": "Carnival Horizon (2018)",
-                  "BoundValue": "IncludeShipCarnivalHorizon"
+                  "BoundValue": "IncludeShipCarnivalHorizon",
+                  "DefaultValue": "checked"
                 }
               ]
             }
@@ -369,22 +394,26 @@ const val testSearchScreenLayout = """
           "ID": "chkLineCelebrity",
           "Label": "Celebrity Cruises",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "CheckboxGroup",
               "ID": "chkClassCelebrityEdge",
               "Label": "Edge Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
               "Controls": [
                 {
                   "Control": "Checkbox",
                   "Label": "Celebrity Apex (2020)",
-                  "BoundValue": "IncludeShipCelebrityApex"
+                  "BoundValue": "IncludeShipCelebrityApex",
+                  "DefaultValue": "checked"
                 },
                 {
                   "Control": "Checkbox",
                   "Label": "Celebrity Beyond (2022)",
-                  "BoundValue": "IncludeShipCelebrityBeyond"
+                  "BoundValue": "IncludeShipCelebrityBeyond",
+                  "DefaultValue": "checked"
                 }
               ]
             },
@@ -393,16 +422,19 @@ const val testSearchScreenLayout = """
               "ID": "chkClassCelebritySolstice",
               "Label": "Solstice Class",
               "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
               "Controls": [
                 {
                   "Control": "Checkbox",
                   "Label": "Celebrity Eclipse (2010)",
-                  "BoundValue": "IncludeShipCelebrityEclipse"
+                  "BoundValue": "IncludeShipCelebrityEclipse",
+                  "DefaultValue": "checked"
                 },
                 {
                   "Control": "Checkbox",
                   "Label": "Celebrity Equinox (2009)",
-                  "BoundValue": "IncludeShipCelebrityEquinox"
+                  "BoundValue": "IncludeShipCelebrityEquinox",
+                  "DefaultValue": "checked"
                 }
               ]
             }

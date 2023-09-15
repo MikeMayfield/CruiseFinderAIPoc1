@@ -17,7 +17,7 @@ fun EmbeddedControls(
         when (control.Control.lowercase()) {
             "button" -> Button(control, control.recomposeTrigger.value, modifier, onValueChange)
             "checkbox" -> Checkbox(control, control.recomposeTrigger.value, modifier, onValueChange)
-            "checkboxgroup" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "checkboxgroup" -> CheckboxGroup(control, control.recomposeTrigger.value, modifier, onValueChange)
             "date" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "deckmap" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "dropdown" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)

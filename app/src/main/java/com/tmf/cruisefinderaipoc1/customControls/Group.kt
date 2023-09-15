@@ -42,14 +42,14 @@ fun Group(
         shape = RoundedCornerShape(6.dp),
         modifier = modifier
             .fillMaxWidth()
-            .padding(5.dp, 5.dp, 5.dp, 5.dp)
+            .padding(5.dp)
             .clickable {
                 expanded = !expanded
             }
     ) {
 
         //Group's display body is generated from its templated Label and Text, if any
-        Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(start = 12.dp)) {  //Label and optional text value
+        Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
             Icon(Icons.Filled.Home,"TODO", modifier = modifier.padding(end = 5.dp))
 
