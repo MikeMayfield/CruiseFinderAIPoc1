@@ -142,12 +142,14 @@ const val testSearchScreenLayout = """
               "Label": "Royal Caribbean Cruise Line",
               "Text": "{Value}",
               "BoundValue": "RCCLLoyaltyNumber",
+              "DefaultValue": "117624231",
               "OnClickArgs": "cruiseline='RCCL',firstName='{Value:PrimaryTravelerFirstName}',lastName='{Value:PrimaryTravelerLastName}',zipcode='{Value:ZipCode}'"
             }
           ]
         }
       ]
     },
+    
     {
       "Control": "Group",
       "ID": "grpPreferences",
@@ -155,61 +157,6 @@ const val testSearchScreenLayout = """
       "Label": "Preferences",
       "Text": "{Value:MinShipRating} Stars; Cabins: {Text:ckgPreferredCabinTypes}",
       "Controls": [
-        {
-          "Control": "TextInput",
-          "Validate": "\\d*",
-          "Label": "Maximum price",
-          "Text": "${'$'} {Value}",
-          "BoundValue": "MaxPrice"
-        },
-        {
-          "Control": "TextInput",
-          "Validate": "\\d*",
-          "Label": "Maximum price per day",
-          "Text": "${'$'} {Value}",
-          "BoundValue": "MaxPricePerDay"
-        },
-        {
-          "Control": "Checkbox",
-          "Label": "Kids sail free",
-          "BoundValue": "KidsSailFree",
-          "DefaultValue": "checked"
-        },
-        {
-          "Control": "TextInput",
-          "Validate": "[12345](\\.\\d)?",
-          "Label": "Minimum ship rating",
-          "Text": "{Value} stars",
-          "BoundValue": "MinShipRating",
-          "DefaultValue": "2"
-        },
-        {
-          "Control": "CheckboxGroup",
-          "ID": "ckgShipSize",
-          "Label": "Ship size",
-          "Text": "{ListChildrenTrueAllNone:{Label}}",
-          "DefaultValue": "checked",
-          "Controls": [
-            {
-              "Control": "Checkbox",
-              "Label": "Small",
-              "BoundValue": "ShipSizeSmall",
-              "DefaultValue": "checked"
-            },
-            {
-              "Control": "Checkbox",
-              "Label": "Medium",
-              "BoundValue": "ShipSizeMedium",
-              "DefaultValue": "checked"
-            },
-            {
-              "Control": "Checkbox",
-              "Label": "Large",
-              "BoundValue": "ShipSizeLarge",
-              "DefaultValue": "checked"
-            }
-          ]
-        },
         {
           "Control": "CheckboxGroup",
           "ID": "ckgPreferredCabinTypes",
@@ -254,6 +201,61 @@ const val testSearchScreenLayout = """
               "DefaultValue": "unchecked"
             }
           ]
+        },
+        {
+          "Control": "CheckboxGroup",
+          "ID": "ckgShipSize",
+          "Label": "Ship size",
+          "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "DefaultValue": "checked",
+          "Controls": [
+            {
+              "Control": "Checkbox",
+              "Label": "Small",
+              "BoundValue": "ShipSizeSmall",
+              "DefaultValue": "checked"
+            },
+            {
+              "Control": "Checkbox",
+              "Label": "Medium",
+              "BoundValue": "ShipSizeMedium",
+              "DefaultValue": "checked"
+            },
+            {
+              "Control": "Checkbox",
+              "Label": "Large",
+              "BoundValue": "ShipSizeLarge",
+              "DefaultValue": "checked"
+            }
+          ]
+        },
+        {
+          "Control": "Dropdown",
+          "Label": "Minimum ship rating",
+          "Text": "{Value} stars",
+          "BoundValue": "MinShipRating",
+          "Choices": "1|1.5|2|2.5|3|3.5|4|4.5",
+          "DefaultValue": "3.5"
+        },
+        {
+          "Control": "TextInput",
+          "Validate": "\\d*",
+          "Label": "Maximum price per person",
+          "Text": "${'$'} {Value}",
+          "BoundValue": "MaxPrice"
+        },
+        {
+          "Control": "TextInput",
+          "Validate": "\\d*",
+          "Label": "Maximum price per day",
+          "Text": "${'$'} {Value}",
+          "BoundValue": "MaxPricePerDay"
+        },
+        {
+          "Control": "Checkbox",
+          "Label": "Kids sail free",
+          "BoundValue": "KidsSailFree",
+          "DefaultValue": "unchecked"
         },
         {
           "Control": "Checkbox",
