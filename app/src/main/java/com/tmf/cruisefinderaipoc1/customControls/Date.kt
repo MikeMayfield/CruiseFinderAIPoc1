@@ -89,8 +89,9 @@ fun Date(
             } else {
                 calendar.set(2005, 1, 1)
             }
-            val minDate = LocalDate.now().minusYears(100).year
-            val maxDate = LocalDate.now().minusYears(18).year
+            val minDate = LocalDate.now().minusYears(100).year  //At most 100 years old
+            val maxDate = LocalDate.now().minusYears(18).year  //At least 18 years old
+
             val datePickerState = rememberDatePickerState(initialSelectedDateMillis = calendar.timeInMillis,
                 yearRange = IntRange(minDate, maxDate)
             )

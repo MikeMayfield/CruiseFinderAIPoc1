@@ -1,6 +1,7 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
@@ -44,7 +45,11 @@ fun Checkbox(
                 )
 
                 Text(
-                    modifier = Modifier.padding(start = 2.dp),
+                    modifier = Modifier.padding(start = 2.dp)
+                        .clickable {
+                            control.liveValue = if (control.liveValue == "checked") "unchecked" else "checked"
+                            onValueChange(control)
+                        },
                     text = control.Label,
                     fontWeight = Bold,
                     color = MaterialTheme.colorScheme.primary
@@ -62,8 +67,13 @@ fun Checkbox(
             )
 
             Text(
-                modifier = Modifier.padding(start = 2.dp),
-                text = control.Label
+                modifier = Modifier.padding(start = 2.dp)
+                    .clickable {
+                        control.liveValue = if (control.liveValue == "checked") "unchecked" else "checked"
+                        onValueChange(control)
+                    },
+                text = control.Label,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }
