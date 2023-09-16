@@ -27,7 +27,7 @@ fun Checkbox(
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Checkbox(checked = (control.liveValue == "checked"),
-            modifier = modifier,
+            modifier = modifier.padding(start = 2.dp),
             onCheckedChange = {
                 control.liveValue = if (it) "checked" else "unchecked"
                 onValueChange(control)

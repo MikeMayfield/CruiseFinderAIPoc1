@@ -77,6 +77,10 @@ data class Control(
             )
         }
 
+    val choices by lazy {
+        Choices?.split('|') ?: listOf<String>()
+    }
+
     //endregion
 
     //region Public methods

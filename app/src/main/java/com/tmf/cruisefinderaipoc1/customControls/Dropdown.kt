@@ -6,13 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,7 +29,7 @@ import com.tmf.cruisefinderaipoc1.models.Control
  * Label and text input box
  */
 @Composable
-fun TextInput(
+fun Dropdown(
     control: Control,
     recomposeTrigger: Int,
     modifier: Modifier = Modifier,
@@ -40,7 +38,7 @@ fun TextInput(
     var expanded by remember { mutableStateOf(false) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
 
-    Log.v("TextInput", "Compose ${control.controlIdLc}")
+    Log.v("Dropdown", "Compose ${control.controlIdLc}")
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -54,7 +52,7 @@ fun TextInput(
     ) {
 
         //Group's display body is generated from its templated Label and Text, if any
-        Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp)) {  //Label and optional text value
+        Row(verticalAlignment = Alignment.Top, modifier = modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
 
             if (expanded) {
@@ -67,7 +65,8 @@ fun TextInput(
                     modifier = Modifier.weight(1f)
                 )
 
-            } else {
+            }
+            else {
                 Text(
                     text = control.annotatedLabel,
                     color = if (control.isValid) MaterialTheme.colorScheme.primary else Red,
@@ -82,29 +81,24 @@ fun TextInput(
         }
 
         if (expanded) {  //Only generate input field if card is expanded
-            OutlinedTextField(
-                value = control.liveValue,
-                singleLine = true,
-                modifier = Modifier.padding(start = 30.dp, top = 10.dp, bottom = 5.dp),
-                isError = !control.isValid,
-                supportingText = {
-                    if (!control.isValid) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = "Value is incorrect",
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-                },
-                trailingIcon = {
-                    if (!control.isValid)
-                        Icon(Icons.Filled.Info,"error", tint = MaterialTheme.colorScheme.error)
-                },
-                onValueChange = {
-                    control.liveValue = it
-                    onValueChange(control)
+            var prependDivider = false
+            for (choice in control.choices) {
+                if (prependDivider) {
+                    Divider(modifier = Modifier.fillMaxWidth().padding(horizontal = 18.dp))
+                } else {
+                    prependDivider = true
                 }
-            )
+
+                DropdownMenuItem(
+                    text = { Text(choice) },
+                    modifier = Modifier.padding(start = 24.dp),
+                    onClick = {
+                        control.liveValue = choice
+                        expanded = false
+                        onValueChange(control)
+                    }
+                )
+            }
         }
     }
 }

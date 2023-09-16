@@ -20,7 +20,7 @@ fun EmbeddedControls(
             "checkboxgroup" -> CheckboxGroup(control, control.recomposeTrigger.value, modifier, onValueChange)
             "date" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "deckmap" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
-            "dropdown" -> Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
+            "dropdown" -> Dropdown(control, control.recomposeTrigger.value, modifier, onValueChange)
             "group" -> Group(control, control.recomposeTrigger.value, modifier, onValueChange)
             "label" ->  Todo(control, control.recomposeTrigger.value, modifier, onValueChange)
             "loyaltytextinput" -> LoyaltyTextInput(control, control.recomposeTrigger.value, modifier, onValueChange)
