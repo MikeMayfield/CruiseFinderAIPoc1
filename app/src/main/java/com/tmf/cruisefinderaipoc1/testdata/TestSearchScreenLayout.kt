@@ -413,7 +413,7 @@ const val testSearchScreenLayout = """
         {
           "Control": "CheckboxGroup",
           "ID": "ckgDepartureMediteranean",
-          "Label": "Mediteranean",
+          "Label": "Mediterranean",
           "Text": "{ListChildrenTrueAllNone:{Label}}",
           "DefaultValue": "checked",
           "Controls": [
@@ -448,48 +448,228 @@ const val testSearchScreenLayout = """
       "Controls": [
         {
           "Control": "CheckboxGroup",
-          "ID": "ckgCaribbean",
-          "Label": "Western Caribbean",
+          "ID": "ckgDestinationAlaska",
+          "Label": "Alaska",
           "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {
               "Control": "Checkbox",
-              "Label": "Cozumel, MX",
-              "BoundValue": "DestinationCozumel",
+              "Label": "Gulf of Alaska",
+              "BoundValue": "DestinationGulfOfAlaska",
               "DefaultValue": "checked"
             },
             {
               "Control": "Checkbox",
-              "Label": "Roatan",
-              "BoundValue": "DestinationRoatan",
+              "Label": "Inside passage",
+              "BoundValue": "DestinationInsidePassageAlaska",
               "DefaultValue": "checked"
             }
           ]
         },
         {
+          "Control": "Checkbox",
+          "Label": "Antartica",
+          "BoundValue": "DestinationAntarica",
+          "DefaultValue": "checked"
+        },
+        {
+          "Control": "Checkbox",
+          "Label": "Australia, New Zealand",
+          "BoundValue": "DestinationAustralia",
+          "DefaultValue": "checked"
+        },
+        {
           "Control": "CheckboxGroup",
-          "ID": "ckgDestinationEasternCaribbean",
-          "Label": "Eastern Caribbean",
-          "Text": "{ListChildrenTrueAllNone:{Label}}",
+          "ID": "ckgCaribbean",
+          "Label": "Caribbean",
+          "Text": "{ChildrenCheckedAllSomeNone}",
           "DefaultValue": "checked",
           "Controls": [
             {
-              "Control": "Checkbox",
-              "Label": "St. Marten",
-              "BoundValue": "DestinationStMarten",
-              "DefaultValue": "checked"
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationEasternCaribbean",
+              "Label": "Eastern Caribbean",
+              "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Bonaire",
+                  "BoundValue": "DestinationBonaire",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "St. Marten",
+                  "BoundValue": "DestinationStMarten",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "St. Thomas",
+                  "BoundValue": "DestinationStThomas",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgSouthernCaribbean",
+              "Label": "Southern Caribbean",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationSCSomeplaceTODO",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgWesternCaribbean",
+              "Label": "Western Caribbean",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Bahamas",
+                  "BoundValue": "DestinationBahamas",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Bermuda",
+                  "BoundValue": "DestinationBermuda",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Cozumel, MX",
+                  "BoundValue": "DestinationCozumel",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Roatan",
+                  "BoundValue": "DestinationRoatan",
+                  "DefaultValue": "checked"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Control": "CheckboxGroup",
+          "ID": "ckgEurope",
+          "Label": "Europe",
+          "Text": "{ChildrenCheckedAllSomeNone}",
+          "DefaultValue": "checked",
+          "Controls": [
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationEasternMediterranean",
+              "Label": "Eastern Mediterranean",
+              "Text": "{ListChildrenTrueAllNone:{Label}}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationEuropeTODO1",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationEuropeWesternMeditarranean",
+              "Label": "Western Mediterranean",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationEuropeTODO2",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationEuropeNorthern",
+              "Label": "Northern Europe",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationEuropeTODO3",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationEuropeWestern",
+              "Label": "Western Europe",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationEuropeTODO4",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationMexico",
+              "Label": "Mexican Riviara",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "Someplace",
+                  "BoundValue": "DestinationMexico",
+                  "DefaultValue": "checked"
+                }
+              ]
+            },
+            {
+              "Control": "CheckboxGroup",
+              "ID": "ckgDestinationExotic",
+              "Label": "Exotic",
+              "Text": "{ChildrenCheckedAllSomeNone}",
+              "DefaultValue": "checked",
+              "Controls": [
+                {
+                  "Control": "Checkbox",
+                  "Label": "World Cruise",
+                  "BoundValue": "DestinationWorldCruise",
+                  "DefaultValue": "checked"
+                },
+                {
+                  "Control": "Checkbox",
+                  "Label": "Asia",
+                  "BoundValue": "DestinationAsiaTODO",
+                  "DefaultValue": "checked"
+                }
+              ]
             },
             {
               "Control": "Checkbox",
-              "Label": "St. Thomas",
-              "BoundValue": "DestinationStThomas",
-              "DefaultValue": "checked"
-            },
-            {
-              "Control": "Checkbox",
-              "Label": "Bonaire",
-              "BoundValue": "DestinationBonaire",
+              "Label": "Panama Canal",
+              "BoundValue": "DestinationPanamaCanal",
               "DefaultValue": "checked"
             }
           ]
@@ -922,4 +1102,5 @@ const val testSearchScreenLayout = """
     }
   ]
 }
+
 """
