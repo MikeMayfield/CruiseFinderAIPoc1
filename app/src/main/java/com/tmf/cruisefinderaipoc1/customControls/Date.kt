@@ -1,13 +1,8 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
 import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,10 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
@@ -48,27 +41,20 @@ fun Date(
     modifier: Modifier = Modifier,
     onValueChange: (changedControl: Control) -> Unit = {}
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded = remember { mutableStateOf(false) }
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
 
     Log.v("Date", "Compose ${control.controlIdLc}")
 
-    Card(
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = RoundedCornerShape(6.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .clickable {
-                expanded = !expanded
-            }
+    ExpandableCard(
+        expanded = expanded
     ) {
 
         //Group's display body is generated from its templated Label and Text, if any
         Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
 
-            if (expanded) {
+            if (expanded.value) {
                 Text(
                     text = "${control.Label}:",
                     color = if (control.isValid) MaterialTheme.colorScheme.primary else Red,
@@ -89,10 +75,10 @@ fun Date(
             }
 
             //Control is collapsable
-            CollapseIcon(expanded = expanded)
+            CollapseIcon(expanded = expanded.value)
         }
 
-        if (expanded) {  //Only generate input field if card is expanded
+        if (expanded.value) {  //Only generate input field if card is expanded
             val formatter = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
             val someDate = LocalDateTime.ofInstant(Instant.ofEpochMilli(100), ZoneId.systemDefault())
 
@@ -100,7 +86,6 @@ fun Date(
             val calendar = Calendar.getInstance()
             if (control.liveValue.isNotEmpty()) {
                 calendar.time = formatter.parse(control.liveValue) // all done
-//                val parsedDate = LocalDate.parse(control.liveValue)
             } else {
                 calendar.set(2005, 1, 1)
             }
@@ -112,11 +97,11 @@ fun Date(
 
             DatePickerDialog(
                 onDismissRequest = {
-                    expanded = false
+                    expanded.value = false
                 },
                 confirmButton = {
                     TextButton(onClick = {
-                        expanded = false
+                        expanded.value = false
                         val selectedDate = Instant.ofEpochMilli(datePickerState.selectedDateMillis!!).atZone(ZoneId.of("GMT")).toLocalDate()
                         control.liveValue = DateTimeFormatter.ofPattern("M/d/yyyy").format(selectedDate)
                         onValueChange(control)
@@ -126,7 +111,7 @@ fun Date(
                 },
                 dismissButton = {
                     TextButton(onClick = {
-                        expanded = false
+                        expanded.value = false
                     }) {
                         Text(text = "Cancel")
                     }
