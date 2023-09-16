@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -43,8 +43,7 @@ class MainActivity : ComponentActivity() {
                     ) {// MaterialTheme.colorScheme.background) {
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .fillMaxHeight()
+                            .fillMaxSize()
                             .padding(5.dp)
                             .verticalScroll(rememberScrollState())
                             .paint(
