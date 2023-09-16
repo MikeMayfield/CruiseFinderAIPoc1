@@ -108,7 +108,7 @@ fun CheckboxGroup(
             //Generate all the child Checkboxes and CheckboxGroups for this group
             for (control in control.Controls) {
                 when (control.Control.lowercase()) {
-                    "checkbox" -> Checkbox(control, control.recomposeTrigger.value, modifier = modifier.padding(start = 5.dp),
+                    "checkbox" -> Checkbox(control, control.recomposeTrigger.value, modifier = modifier.padding(start = 5.dp), useCard = false,
                         onValueChange = { childCheckedChangeHandler() })
                     "checkboxgroup" -> CheckboxGroup(control, control.recomposeTrigger.value, modifier = modifier.padding(start = 5.dp),
                         onValueChange = { childCheckedChangeHandler() })

@@ -1,7 +1,6 @@
 package com.tmf.cruisefinderaipoc1.customControls
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.tmf.cruisefinderaipoc1.models.Control
@@ -54,7 +52,7 @@ fun Group(
     ) {
 
         //Group's display body is generated from its templated Label and Text, if any
-        Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp).background(Yellow)) {  //Label and optional text value
+        Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
             Icon(Icons.Filled.Home,"TODO", modifier = modifier.padding(end = 5.dp))
 
