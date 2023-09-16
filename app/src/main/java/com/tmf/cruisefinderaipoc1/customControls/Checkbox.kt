@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -59,7 +60,8 @@ fun Checkbox(
                 Text(
                     modifier = Modifier.padding(start = 2.dp),
                     text = control.Label,
-                    fontWeight = Bold
+                    fontWeight = Bold,
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }
