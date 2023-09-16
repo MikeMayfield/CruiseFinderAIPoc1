@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tmf.cruisefinderaipoc1.models.Control
 
 /**
@@ -22,15 +23,16 @@ fun Button(
 ) {
     if (recomposeTrigger == -1) return  //NOTE: This will never be true. Used to force a "use" of recomposeTrigger so that Compose will call this method when trigger is changed
 
-    Button(modifier = modifier.fillMaxWidth().padding(10.dp),
+    Button(modifier = Modifier.fillMaxWidth().padding(10.dp),
         onClick = {
             //TODO Execute OnClick handler for Control
             onValueChange(control)
         }
     ) {
         Text(text = control.Label,
+            fontSize = 24.sp,
             textAlign = TextAlign.Center,
-            modifier = modifier.fillMaxWidth())
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp))
     }
 
 }

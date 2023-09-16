@@ -43,7 +43,7 @@ fun Checkbox(
             shape = RoundedCornerShape(6.dp),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(5.dp)
+                .padding(10.dp)
                 .clickable {
                     expanded = !expanded
                 }

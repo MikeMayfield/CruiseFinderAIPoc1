@@ -25,7 +25,7 @@ const val testSearchScreenLayout = """
           "Controls": [
             {
               "Control": "TextInput",
-              "Label": "First name",
+              "Label": "Legal first name",
               "Text": "{Value}",
               "Hint": "Enter first name",
               "BoundValue": "PrimaryTravelerFirstName",
@@ -33,7 +33,7 @@ const val testSearchScreenLayout = """
             },
             {
               "Control": "TextInput",
-              "Label": "Last name",
+              "Label": "Legal last name",
               "Text": "{Value}",
               "Hint": "Enter last name",
               "BoundValue": "PrimaryTravelerLastName",
@@ -41,7 +41,7 @@ const val testSearchScreenLayout = """
             },
             {
               "Control": "TextInput",
-              "Label": "Primary traveler's zip code",
+              "Label": "Zip code",
               "Text": "{Value}",
               "Validate": "\\d{5}",
               "Hint": "99999",
@@ -50,7 +50,7 @@ const val testSearchScreenLayout = """
             },
             {
               "Control": "Date",
-              "Label": "Oldest traveler's birth date",
+              "Label": "Birth date",
               "Text": "{Value}",
               "BoundValue": "OldestTravelerBirthDate"
             }

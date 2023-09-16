@@ -42,9 +42,9 @@ fun CheckboxGroup(
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(6.dp),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
+            .padding(10.dp)
             .clickable {
                 expanded = !expanded
             }

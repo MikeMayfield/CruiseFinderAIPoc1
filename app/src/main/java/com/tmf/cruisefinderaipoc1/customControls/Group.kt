@@ -43,9 +43,9 @@ fun Group(
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         shape = RoundedCornerShape(6.dp),
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp)
+            .padding(10.dp)
             .clickable {
                 expanded = !expanded
             }
@@ -54,7 +54,7 @@ fun Group(
         //Group's display body is generated from its templated Label and Text, if any
         Row(verticalAlignment = Alignment.Top, modifier = Modifier.padding(12.dp)) {  //Label and optional text value
             //TODO Support optional leading icon
-            Icon(Icons.Filled.Home,"TODO", modifier = modifier.padding(end = 5.dp))
+            Icon(Icons.Filled.Home,"TODO", modifier = Modifier.padding(end = 5.dp))
 
             Text(text = control.annotatedLabel,
                 color = if (control.isValid) MaterialTheme.colorScheme.primary else Color.Red,
