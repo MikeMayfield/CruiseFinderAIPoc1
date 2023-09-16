@@ -323,7 +323,7 @@ data class Control(
         var prependComma = false
 
         for (control in control.Controls) {
-            if (control.liveValue.isNotEmpty()) {
+            if (control.liveValue.isNotBlank()) {
                 if (prependComma) {
                     resultSB.append(", ")
                 } else {
